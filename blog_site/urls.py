@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from users import views as users_views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/',users_views.register, name='register'), # we directly used this i.e no urls.py in users app
+    path('register/',users_views.register, name='register'),# we directly used this i.e no urls.py in users app
+    path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login') ,
+    path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('',include('blog.urls')),
 ]
+#by default django will look for template of login in registrtions/login.html , 
+# but we can tell django where to look ata by passing path in as_view() functions parameter
